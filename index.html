@@ -31,7 +31,7 @@
           Anno <input type="number" placeholder="Anno di pubblicazione del libro">
         </div>
         <div class="campo">
-          Formato <select>
+          Formato <select id="formato">
             <option value="cartaceo">Cartaceo</option>
             <option value="digitale">Digitale</option>
           </select>
@@ -44,7 +44,8 @@
     </section>
 
     <section class="lista-section">
-      <h2>I tuoi libri</h2>
+      <h2>I tuoi libri (<span id="contatore">0</span>)</h2>
+      
       <ul id="lista-libri">
         <!-- popolato da JavaScript -->
       </ul>

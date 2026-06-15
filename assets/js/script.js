@@ -9,10 +9,13 @@
 // Bonus: bottone "Segna come letto" su ogni elemento, gestito con event delegation.
 
 
-// === Classi ===
+
+// LE CLASSI
+
 
 class Libro {
     static contatore = 0;
+    
     constructor(_titolo, _autore, _anno) {
         this.id = ++Libro.contatore;
         this.titolo = _titolo;
@@ -20,6 +23,7 @@ class Libro {
         this.anno = _anno;
         this.letto = false;
     }
+
     segnaComeLetto() {
         return this.letto = true;
     }
@@ -27,12 +31,12 @@ class Libro {
     formato() {
         return `cartaceo`;
     }
-};
+}
 
 class LibroDigitale extends Libro {
     constructor(_titolo, _autore, _anno, _dimensioneMb) {
-       super (_titolo, _autore, _anno);
-       this.dimensioneMb = _dimensioneMb;
+        super(_titolo, _autore, _anno);
+        this.dimensioneMb = _dimensioneMb;
     }
 
     formato() {
@@ -40,16 +44,98 @@ class LibroDigitale extends Libro {
     }
 }
 
-
-// === Stato (array di libri) ===
+// ARRAY DEI LIBRI
 
 const Libri = [];
 
-renderLibri(); 
+// RENDER
 
+function renderLibri() {
+    const htmlLibri = Libri.map(l => {
+        const classeLetto = l.letto ? "letto" : "";
+        const testoBottone = l.letto === false ? "Segna come letto" : "✅";
 
-// === Render ===
+        return `
+            <li class="${classeLetto}" data-id="${l.id}">
+                <div class="info">
+                    <strong>${l.titolo}</strong>
+                    <span class="badge-formato">${l.formato()}</span>
+                    <p class="meta">di ${l.autore} (${l.anno})</p>
+                </div>
+                <div class="azioni">
+                    <button data-azione="leggi">${testoBottone}</button>
+                </div>
+            </li>
+        `;
+    }).join("");
 
+    document.getElementById("lista-libri").innerHTML = htmlLibri;
 
+    document.getElementById("contatore").textContent = Libri.length;
+}
 
-// === Eventi ===
+// EVENT LISTENERS
+
+const selectFormato = document.getElementById("formato");
+const campoDimensione = document.getElementById("campo-dimensione");
+
+if (selectFormato) {
+    selectFormato.addEventListener("change", function () {
+        if (selectFormato.value.toLowerCase() === "digitale") {
+            campoDimensione.removeAttribute("hidden");
+        } else {
+            campoDimensione.setAttribute("hidden", "true");
+        }
+    });
+}
+
+// SUBMIT FORM
+
+const formAggiungi = document.getElementById("aggiungi-libro");
+
+if (formAggiungi) {
+    formAggiungi.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const titolo = formAggiungi.querySelector('input[placeholder*="Titolo"]').value;
+        const autore = formAggiungi.querySelector('input[placeholder*="Autore"]').value;
+        const anno = parseInt(formAggiungi.querySelector('input[placeholder*="Anno"]').value);
+        const formatoScelto = selectFormato.value.toLowerCase();
+
+        let nuovoLibro;
+
+        if (formatoScelto === "digitale") {
+            const dimensione = parseFloat(campoDimensione.querySelector('input').value);
+            nuovoLibro = new LibroDigitale(titolo, autore, anno, dimensione);
+        } else {
+            nuovoLibro = new Libro(titolo, autore, anno);
+        }
+
+        Libri.push(nuovoLibro);
+        renderLibri();
+        e.target.reset();
+        campoDimensione.setAttribute("hidden", "true");
+    });
+}
+
+// CLICK DELEGATO
+
+const listaLibriElement = document.getElementById("lista-libri");
+
+if (listaLibriElement) {
+    listaLibriElement.addEventListener("click", function (e) {
+    
+        const bottoneLeggi = e.target.closest('[data-azione="leggi"]');
+        
+        if (!bottoneLeggi) return;
+
+        const tagLi = bottoneLeggi.closest("li");
+        const idLibro = parseInt(tagLi.dataset.id);
+        const libroTrovato = Libri.find(l => l.id === idLibro);
+
+        if (libroTrovato) {
+            libroTrovato.segnaComeLetto(); 
+            renderLibri();
+        }
+    });
+}

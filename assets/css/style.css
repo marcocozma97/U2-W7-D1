@@ -1,33 +1,217 @@
 /* Mini-libreria — Settimana VII Giorno I
    Stile minimal: il focus è sulla logica JS, non sul layout. */
 
-
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
   font-family: "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-  background: #f7f7f7;
-  color: #1a1a1a;
+  font-size: 14px; 
+  line-height: 1.5;
+  background: #f4f6f8;
+  color: #333333;
 }
 
 .container {
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 30px 20px;
 }
 
 .site-header {
-  background: hsl(220, 50%, 25%);
+  background: #1e3a6a; 
   color: white;
-  padding: 30px 20px;
+  padding: 40px 20px;
   text-align: center;
 }
 
-.site-header h1 { margin: 0 0 8px; }
-.site-header p  { margin: 0; opacity: 0.85; }
+.site-header h1 { 
+  margin: 0 0 12px; 
+  font-size: 28px;
+  font-weight: 700;
+}
+.site-header p { 
+  margin: 0; 
+  opacity: 0.9; 
+  font-size: 15px;
+}
+
+/* FORM */
+
+.form-section {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  margin-bottom: 30px;
+}
+
+.form-section h2, .lista-section h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #111111;
+  font-weight: 700;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+  color: #222222;
+}
+
+.form input[type="text"],
+.form input[type="number"],
+.form select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #dcdcdc;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 14px;
+  color: #333333;
+  background-color: #ffffff;
+}
+
+.form input:focus, .form select:focus {
+  outline: none;
+  border-color: #1e3a6a;
+}
+
+.btn-primary {
+  align-self: flex-start;
+  background: #1e3a6a;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+.btn-primary:hover {
+  background: #15294a;
+}
+
+/* SEZIONE LISTA LIBRI */
+
+.lista-section h2 {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+#lista-libri {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Struttura base della card del libro */
+
+#lista-libri li {
+  background: #ffffff;
+  padding: 16px 20px;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 4px solid #1e3a6a; 
+  transition: all 0.2s ease;
+}
+
+/* Quando il libro viene contrassegnato come LETTO */
+
+#lista-libri li.letto {
+  border-left-color: #52a874;
+}
+
+/* Spostiamo i testi a sinistra e l'azione a destra */
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.titolo-riga {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.titolo-libro {
+  font-size: 15px;
+  color: #111111;
+}
+
+/* Se il libro è letto, schiariamo leggermente i testi */
+
+#lista-libri li.letto .titolo-libro {
+  color: #555555;
+}
+
+/* Il badge grigio del formato */
+
+.badge-formato {
+  background: #eaeaea;
+  color: #666666;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+/* Autore e anno sotto il titolo */
+
+.meta {
+  margin: 0;
+  color: #666666;
+  font-size: 13px;
+}
+
+#lista-libri li.letto .meta {
+  color: #888888;
+}
 
 
-/* Aggiungi qui le tue regole per form, lista libri, bottoni, ecc. */
+/* Bottone "Segna come letto" */
+
+.btn-leggi {
+  background: #ffffff;
+  color: #333333;
+  border: 1px solid #cccccc;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btn-leggi:hover {
+  background: #f5f5f5;
+  border-color: #b5b5b5;
+}
+
+/* La scritta "✓ letto" verde che sostituisce il bottone */
+
+.testo-letto {
+  color: #41885c;
+  font-weight: 500;
+  font-size: 13px;
+  padding-right: 6px;
+}
