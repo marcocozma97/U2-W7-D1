@@ -41,11 +41,11 @@ class LibroDigitale extends Libro {
 }
 
 
-
-
-
 // === Stato (array di libri) ===
 
+const Libri = [];
+
+renderLibri(); 
 
 
 // === Render ===
