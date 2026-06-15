@@ -11,6 +11,16 @@
 
 // === Classi ===
 
+class Libro {
+    static contatore = 0;
+    constructor(_titolo, _autore, _anno) {
+    this.id = ++Libro.contatore;
+    this.titolo = _titolo;
+    this.autore = _autore;
+    this.anno = _anno;
+    this.letto = false;
+    }
+}
 
 
 // === Stato (array di libri) ===
