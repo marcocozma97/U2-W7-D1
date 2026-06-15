@@ -29,6 +29,17 @@ class Libro {
     }
 };
 
+class LibroDigitale extends Libro {
+    constructor(_titolo, _autore, _anno, _dimensioneMb) {
+       super (_titolo, _autore, _anno);
+       this.dimensioneMb = _dimensioneMb;
+    }
+
+    formato() {
+        return `digitale (${this.dimensioneMb} MB)`;
+    }
+}
+
 
 
 
